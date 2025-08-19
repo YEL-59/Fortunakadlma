@@ -1,5 +1,6 @@
 "use client";
 
+import { useNavigate, useLocation } from "react-router";
 import {
   Home,
   Users,
@@ -24,10 +25,12 @@ import { useTheme } from "@/components/ui/theme-provider";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   return (
-    <nav className="w-full border-b bg-background dark:bg-gray-900 dark:border-gray-800">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-2">
+    <div className="w-full border-b bg-background dark:bg-gray-900 dark:border-gray-800">
+      <div className="container mx-auto flex items-center justify-between px-4 py-5">
         {/* Left Section: Logo + Search */}
         <div className="flex items-center gap-4">
           {/* Logo */}
@@ -62,14 +65,36 @@ export default function Navbar() {
 
         {/* Center Navigation */}
         <div className="flex items-center gap-8 text-sm">
-          <NavItem icon={<Home className="h-5 w-5" />} label="Home" active />
-          <NavItem icon={<Users className="h-5 w-5" />} label="My Network" />
-          <NavItem icon={<Briefcase className="h-5 w-5" />} label="Job" />
+          <NavItem
+            icon={<Home className="h-5 w-5" />}
+            label="Home"
+            to="/"
+            currentPath={location.pathname}
+          />
+          <NavItem
+            icon={<Users className="h-5 w-5" />}
+            label="My Network"
+            to="/network"
+            currentPath={location.pathname}
+          />
+          <NavItem
+            icon={<Briefcase className="h-5 w-5" />}
+            label="Jobs"
+            to="/jobs"
+            currentPath={location.pathname}
+          />
           <NavItem
             icon={<MessageSquare className="h-5 w-5" />}
             label="Messaging"
+            to="/messaging"
+            currentPath={location.pathname}
           />
-          <NavItem icon={<Bell className="h-5 w-5" />} label="Notification" />
+          <NavItem
+            icon={<Bell className="h-5 w-5" />}
+            label="Notifications"
+            to="/notifications"
+            currentPath={location.pathname}
+          />
         </div>
 
         {/* Right Section: Avatar + Dropdown */}
@@ -89,8 +114,12 @@ export default function Navbar() {
           <DropdownMenuContent align="end" className="w-40">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate("/profile")}>
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate("/settings")}>
+              Settings
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             {/* Theme Toggle */}
             <DropdownMenuItem
@@ -108,20 +137,26 @@ export default function Navbar() {
               )}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Logout</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate("/logout")}>
+              Logout
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-    </nav>
+    </div>
   );
 }
 
 /* Reusable NavItem Component */
-function NavItem({ icon, label, active = false }) {
+function NavItem({ icon, label, to = "/", currentPath }) {
+  const navigate = useNavigate();
+  const isActive = currentPath === to;
+
   return (
     <button
+      onClick={() => navigate(to)}
       className={`flex flex-col items-center text-xs ${
-        active
+        isActive
           ? "text-cyan-500 font-semibold"
           : "text-gray-500 hover:text-cyan-500"
       }`}
