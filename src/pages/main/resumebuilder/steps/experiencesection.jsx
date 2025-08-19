@@ -4,29 +4,28 @@ import { PlusCircle, Pencil, Trash2 } from "lucide-react";
 import ExperienceModal from "../resumebuilder-modal/ExperienceModal";
 import { useFormContext, useWatch } from "react-hook-form";
 import ResumePreview from "../resumePreview";
-//import CertificationModal from "../CertificationModal";
+
 import ProjectModal from "../resumebuilder-modal/ProjectModal";
 
 const ExperienceSection = () => {
   const { setValue, control } = useFormContext();
   const experiences = useWatch({ control, name: "experiences" }) || [];
-  //const certifications = useWatch({ control, name: "certifications" }) || [];
+
   const projects = useWatch({ control, name: "projects" }) || [];
 
   // State for modals
   const [openExperience, setOpenExperience] = useState(false);
-  //const [openCert, setOpenCert] = useState(false);
+
   const [openProj, setOpenProj] = useState(false);
 
   const [editExpIndex, setEditExpIndex] = useState(null);
-  //const [editCertIndex, setEditCertIndex] = useState(null);
+
   const [editProjIndex, setEditProjIndex] = useState(null);
 
   // Generic save handler
   const handleSave = (key, data, editIndex, setEditIndex, setOpen) => {
     let updated;
     if (key === "experiences") updated = [...experiences];
-    //else if (key === "certifications") updated = [...certifications];
     else if (key === "projects") updated = [...projects];
     else updated = [];
 
@@ -43,7 +42,6 @@ const ExperienceSection = () => {
   const handleDelete = (key, index) => {
     let current;
     if (key === "experiences") current = [...experiences];
-    // else if (key === "certifications") current = [...certifications];
     else if (key === "projects") current = [...projects];
     else current = [];
 
@@ -132,52 +130,6 @@ const ExperienceSection = () => {
           }
         )}
 
-        {/* Certifications */}
-        {/* {renderList(
-          "Certifications",
-          certifications,
-          (idx) => {
-            setEditCertIndex(idx);
-            setOpenCert(true);
-          },
-          (idx) => handleDelete("certifications", idx),
-          {
-            onAdd: () => {
-              setEditCertIndex(null);
-              setOpenCert(true);
-            },
-            render: (cert) => (
-              <>
-                <p className="font-semibold">{cert.certificationName}</p>
-                <p className="text-sm text-gray-600">
-                  {cert.issuingOrganization} • {cert.dateEarned}
-                  {cert.expirationDate && ` — Expires: ${cert.expirationDate}`}
-                </p>
-                {cert.credentialId && (
-                  <p className="text-sm text-gray-500">
-                    ID: {cert.credentialId}
-                  </p>
-                )}
-                {cert.certificationURL && (
-                  <a
-                    href={cert.certificationURL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 text-sm underline"
-                  >
-                    View Certification
-                  </a>
-                )}
-                {cert.notes && (
-                  <p className="text-sm italic text-gray-500 mt-1">
-                    {cert.notes}
-                  </p>
-                )}
-              </>
-            ),
-          }
-        )} */}
-
         {/* Projects */}
         {renderList(
           "Projects",
@@ -248,26 +200,6 @@ const ExperienceSection = () => {
         }
         initialData={editExpIndex !== null ? experiences[editExpIndex] : null}
       />
-
-      {/* <CertificationModal
-        open={openCert}
-        onClose={() => {
-          setOpenCert(false);
-          setEditCertIndex(null);
-        }}
-        onSave={(data) =>
-          handleSave(
-            "certifications",
-            data,
-            editCertIndex,
-            setEditCertIndex,
-            setOpenCert
-          )
-        }
-        initialData={
-          editCertIndex !== null ? certifications[editCertIndex] : null
-        }
-      /> */}
 
       <ProjectModal
         open={openProj}
