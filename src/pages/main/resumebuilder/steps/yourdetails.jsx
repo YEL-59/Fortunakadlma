@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import ResumePreview from "../resumepreview";
 
 const YourDetails = () => {
   const methods = useFormContext();
@@ -154,7 +155,7 @@ const YourDetails = () => {
       {/* Right Preview */}
       <div className="rounded p-2 h-full text-gray-900 dark:text-gray-100">
         <h1 className="text-2xl font-medium mb-4 font-poppins">Preview</h1>
-        {/* <ResumePreview values={values} /> */}
+        <ResumePreview values={values} />
       </div>
     </form>
   );
