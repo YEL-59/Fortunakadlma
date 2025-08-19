@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 import { PlusCircle, Pencil, Trash2 } from "lucide-react";
 import ExperienceModal from "../resumebuilder-modal/ExperienceModal";
 import { useFormContext, useWatch } from "react-hook-form";
-import ResumePreview from "../resumePreview";
 
 import ProjectModal from "../resumebuilder-modal/ProjectModal";
+import ResumePreview from "../resumepreview";
 
 const ExperienceSection = () => {
   const { setValue, control } = useFormContext();
