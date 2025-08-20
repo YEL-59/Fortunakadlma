@@ -3,8 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MoreHorizontal } from "lucide-react";
 import { useNavigate } from "react-router";
+import { useState, useEffect, useRef } from "react";
 
-// ✅ Reusable Progress Circle
 function ProgressCircle({ value = 0, size = 50, strokeWidth = 6 }) {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -42,7 +42,6 @@ function ProgressCircle({ value = 0, size = 50, strokeWidth = 6 }) {
   );
 }
 
-// ✅ Goal Card Component
 function GoalCard({ goal }) {
   return (
     <Card className="rounded-2xl shadow-sm">
@@ -62,7 +61,6 @@ function GoalCard({ goal }) {
   );
 }
 
-// ✅ Main Goals Component
 export default function GoalsList() {
   const navigate = useNavigate();
   const goals = [
@@ -76,10 +74,20 @@ export default function GoalsList() {
     { id: 3, title: "Coding Html", date: "Mon, 21 Jan 2022", progress: 70 },
   ];
 
+  const [activeTab, setActiveTab] = useState("all");
+  const contentRef = useRef(null);
+  const [contentHeight, setContentHeight] = useState(0);
+
+  // Update height on tab change
+  useEffect(() => {
+    if (contentRef.current) {
+      setContentHeight(contentRef.current.scrollHeight);
+    }
+  }, [activeTab]);
+
   return (
     <div className="space-y-6">
-      {/* Tabs */}
-      <Tabs defaultValue="all">
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="bg-gray-100 rounded-full p-1 w-fit">
           <TabsTrigger
             value="all"
@@ -101,29 +109,34 @@ export default function GoalsList() {
           </TabsTrigger>
         </TabsList>
 
-        {/* All Goals */}
-        <TabsContent value="all" className="space-y-3 pt-4">
-          {goals.map((g) => (
-            <GoalCard key={g.id} goal={g} />
-          ))}
-        </TabsContent>
-
-        {/* In Progress */}
-        <TabsContent value="progress" className="pt-4">
-          <p className="text-gray-400 text-sm">No goals in progress.</p>
-        </TabsContent>
-
-        {/* Completed */}
-        <TabsContent value="completed" className="pt-4">
-          <p className="text-gray-400 text-sm">No goals completed yet.</p>
-        </TabsContent>
+        {/* Animated Content Container */}
+        <div
+          ref={contentRef}
+          className="transition-all duration-300 overflow-hidden"
+          style={{ height: contentHeight }}
+        >
+          {activeTab === "all" && (
+            <div className="space-y-3 pt-4">
+              {goals.map((g) => (
+                <GoalCard key={g.id} goal={g} />
+              ))}
+            </div>
+          )}
+          {activeTab === "progress" && (
+            <div className="pt-4">
+              <p className="text-gray-400 text-sm">No goals in progress.</p>
+            </div>
+          )}
+          {activeTab === "completed" && (
+            <div className="pt-4">
+              <p className="text-gray-400 text-sm">No goals completed yet.</p>
+            </div>
+          )}
+        </div>
       </Tabs>
 
-      {/* Add Button */}
       <Button
-        onClick={() => {
-          navigate("/create-new-goal");
-        }}
+        onClick={() => navigate("/create-new-goal")}
         className="w-full rounded-full bg-cyan-400 hover:bg-cyan-500"
       >
         Add New Goal
