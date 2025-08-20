@@ -1,5 +1,7 @@
 import HomeLayout from "@/layouts/HomeLayout";
 import About from "@/pages/main/about";
+import GoalTracker from "@/pages/main/goal-tracker";
+import GoalCreate from "@/pages/main/goal-tracker/goal-create";
 import Home from "@/pages/main/home";
 import ResumeBuilder from "@/pages/main/resumebuilder";
 import ResumeBuilderStepper from "@/pages/main/resumebuilder/stepper";
@@ -21,6 +23,14 @@ export const router = createBrowserRouter([
       {
         path: "resumeBuild-step",
         element: <ResumeBuilderStepper />,
+      },
+      {
+        path: "goal-tracker",
+        element: <GoalTracker />,
+      },
+      {
+        path: "create-new-goal",
+        element: <GoalCreate />,
       },
       {
         path: "about",
