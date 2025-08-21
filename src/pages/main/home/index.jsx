@@ -28,7 +28,7 @@ const Home = () => {
       id: 3,
       icon: <InterviewSvg />,
       text: "Interview center",
-      route: "/interview-center",
+      route: "/interview-prep",
     },
     {
       id: 4,
