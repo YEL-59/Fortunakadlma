@@ -22,6 +22,7 @@ import Badge from "@/pages/main/badge";
 import Leaderboard from "@/pages/main/badge/leaderboard";
 import Progress from "@/pages/main/badge/progress";
 import { createBrowserRouter } from "react-router";
+import PortfolioBuilder from "@/pages/main/portfolio-builder";
 
 export const router = createBrowserRouter([
   {
@@ -100,22 +101,26 @@ export const router = createBrowserRouter([
         path: "learning-coach/all-videos",
         element: <AllVideos />,
       },
-              {
-          path: "learning-coach/all-courses",
-          element: <AllCourses />,
-        },
-        {
-          path: "badges",
-          element: <Badge />,
-        },
-        {
-          path: "badges/leaderboard",
-          element: <Leaderboard />,
-        },
-        {
-          path: "badges/progress",
-          element: <Progress />,
-        }
+      {
+        path: "learning-coach/all-courses",
+        element: <AllCourses />,
+      },
+      {
+        path: "badges",
+        element: <Badge />,
+      },
+      {
+        path: "badges/leaderboard",
+        element: <Leaderboard />,
+      },
+      {
+        path: "badges/progress",
+        element: <Progress />,
+      },
+      {
+        path: "portfolio-builder",
+        element: <PortfolioBuilder />,
+      }
     ],
   },
 ]);
