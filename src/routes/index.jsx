@@ -23,6 +23,7 @@ import Leaderboard from "@/pages/main/badge/leaderboard";
 import Progress from "@/pages/main/badge/progress";
 import { createBrowserRouter } from "react-router";
 import PortfolioBuilder from "@/pages/main/portfolio-builder";
+import Jobs from "@/pages/main/jobs";
 
 export const router = createBrowserRouter([
   {
@@ -120,7 +121,11 @@ export const router = createBrowserRouter([
       {
         path: "portfolio-builder",
         element: <PortfolioBuilder />,
-      }
+      },
+      {
+        path: "jobs",
+        element: <Jobs />,
+      },
     ],
   },
 ]);
