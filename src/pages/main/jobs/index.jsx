@@ -19,8 +19,8 @@ const Jobs = () => {
 
     return (
         <JobsProvider>
-            <div className="min-h-screen bg-slate-100 p-4">
-                <div className="max-w-5xl mx-auto space-y-6">
+            <div className="min-h-screen bg-slate-100 p-2 sm:p-3 md:p-4">
+                <div className="max-w-5xl mx-auto space-y-3 sm:space-y-4 md:space-y-6">
                     {view === "list" && <JobList onSelect={handleSelect} />}
                     {view === "details" && (
                         <JobDetails job={selected} onBack={() => setView("list")} onApplied={handleApplied} />

@@ -13,12 +13,12 @@ const sampleJobs = [
 const Tabs = ({ active, onChange }) => {
     const items = ["Preferences", "Ai Matches", "My Jobs"];
     return (
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1 sm:gap-2 md:gap-3 overflow-x-auto pb-2 scrollbar-hide">
             {items.map((t) => (
                 <button
                     key={t}
                     onClick={() => onChange(t)}
-                    className={`px-4 py-2 rounded-full text-sm transition border ${active === t ? "bg-sky-500 text-white border-sky-500 shadow" : "bg-white text-slate-600 hover:bg-slate-50"}`}
+                    className={`px-2 sm:px-3 md:px-4 py-2 rounded-full text-xs sm:text-sm transition border whitespace-nowrap flex-shrink-0 ${active === t ? "bg-sky-500 text-white border-sky-500 shadow" : "bg-white text-slate-600 hover:bg-slate-50"}`}
                 >
                     {t}
                 </button>
@@ -28,12 +28,12 @@ const Tabs = ({ active, onChange }) => {
 };
 
 const Section = ({ title, jobs, onSelect }) => (
-    <div className="space-y-3">
+    <div className="space-y-2 sm:space-y-3">
         <div className="flex items-center justify-between">
             <div className="text-sm font-semibold text-slate-900">{title}</div>
             <button className="text-sky-500 text-sm">See All</button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 md:gap-4">
             {jobs.map((j) => (
                 <JobCard key={j.id} job={j} onSelect={onSelect} />
             ))}
@@ -47,7 +47,7 @@ const JobList = ({ onSelect }) => {
     const recent = sampleJobs.slice(3, 6);
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-3 sm:space-y-4 md:space-y-6">
             <Tabs active={tab} onChange={setTab} />
             <Section title="Recommendation" jobs={rec} onSelect={onSelect} />
             <Section title="Recent Jobs" jobs={recent} onSelect={onSelect} />
